@@ -93,6 +93,12 @@ function moveEverything(){
         ballSpeedY = -ballSpeedY;
     }
 }
+
+function  drawNet() {
+    for(var i= 0; i < canvas.height; i += 40){
+        colorRect(canvas.width/2-1,i,2,20,'white');
+    }
+}
 function drawEverything() {
     //black screen
     colorRect(0,0,canvas.width,canvas.height, 'black');
@@ -102,6 +108,8 @@ function drawEverything() {
     colorRect(canvas.width-PADDLE_THICKNESS,paddle2Y,PADDLE_THICKNESS,PADDLE_HEIGHT,'white');
     //ball
     colorCircle(ballX, ballY, 10, 'white');
+    //net
+    drawNet();
 
     canvasContext.fillText(player1Score, 100,100);
     canvasContext.fillText(player2Score, canvas.width - 100,100);
