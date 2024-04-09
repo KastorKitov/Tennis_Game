@@ -26,10 +26,17 @@ function drawEverything() {
 
     colorRect(0,0,canvas.width,canvas.height, 'black');
     colorRect(0,210,10,100,'white');
-    colorRect(ballX,100,10,10,'red');
+    colorCircle(ballX, 150, 10, 'white')
 }
 
 function colorRect(leftX, topX, width, height, drawColor){
     canvasContext.fillStyle = drawColor;
     canvasContext.fillRect(leftX,topX,width,height);
+}
+
+function colorCircle(centerX, centerY, radius, drawColor){
+    canvasContext.fillStyle = 'white';
+    canvasContext.beginPath();
+    canvasContext.arc(centerX, centerY, radius, 0,Math.PI*2, true);
+    canvasContext.fill();
 }
