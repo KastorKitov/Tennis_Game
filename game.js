@@ -6,7 +6,9 @@ var ballSpeedX = 10;
 var ballSpeedY = 4;
 
 var paddle1Y = 250;
+var paddle2Y = 250;
 const PADDLE_HEIGHT = 100;
+const PADDLE_THICKNESS = 10;
 
 function calculateMousePosition(evt){
     var rect = canvas.getBoundingClientRect();
@@ -35,29 +37,48 @@ window.onload = function(){
         paddle1Y = mousePos.y - (PADDLE_HEIGHT/2);
     })
 }
+
+function ballReset(){
+    ballSpeedX = -ballSpeedX;
+    ballX = canvas.width/2;
+    ballY - canvas.height/2;
+}
 function moveEverything(){
     //move left and right
     ballX = ballX + ballSpeedX;
-    if(ballX >= canvas.width){
-        ballSpeedX = -ballSpeedX;
-    }
+
     if(ballX < 0){
-        ballSpeedX = -ballSpeedX;
+        if(ballY > paddle1Y && ballY < paddle1Y + PADDLE_HEIGHT){
+            ballSpeedX = -ballSpeedX;
+        }else{
+            ballReset();
+        }
+    }
+    if(ballX > canvas.width){
+        if(ballY > paddle2Y && ballY < paddle2Y + PADDLE_HEIGHT){
+            ballSpeedX = -ballSpeedX;
+        }else{
+            ballReset();
+        }
     }
 
     //move up and down
     ballY = ballY + ballSpeedY;
-    if(ballY >= canvas.width){
+    if(ballY < 0){
         ballSpeedY = -ballSpeedY;
     }
-    if(ballY < 0){
+    if(ballY > canvas.height){
         ballSpeedY = -ballSpeedY;
     }
 }
 function drawEverything() {
-
+    //black screen
     colorRect(0,0,canvas.width,canvas.height, 'black');
-    colorRect(0,paddle1Y,10,PADDLE_HEIGHT,'white');
+    //left player paddle
+    colorRect(0,paddle1Y,PADDLE_THICKNESS,PADDLE_HEIGHT,'white');
+    //right player paddle
+    colorRect(canvas.width-PADDLE_THICKNESS,paddle2Y,PADDLE_THICKNESS,PADDLE_HEIGHT,'white');
+    //ball
     colorCircle(ballX, ballY, 10, 'white')
 }
 
